@@ -1,7 +1,5 @@
+#Creating a file to understand how the brezzi douglas marini finite element code works.
 #Justin Crum
-#Testing rates of convergence on a custom mesh.
-#The mesh of interest is the trapezoidal mesh, and we should see a slower rate of convergence.
-
 
 
 from firedrake import *
@@ -57,8 +55,8 @@ for i in range (2, Times + 3):
             if(PowerX % 2 == 1):
                 Y += (1.0 / (2.0 * Cells))
                 mesh.coordinates.dat.data[j,1] = Y
-    plot(mesh)
-    plt.show()
+    #plot(mesh)
+    #plt.show()
 
     #Set up the function space
     V = FunctionSpace(mesh, "S", PolyDegree)
@@ -109,7 +107,10 @@ for i in range (2, Times + 3):
     Errors.append(ErrVal)
     CellCount.append(Cells)
 
-import matplotlib.pyplot as plt
+
+
+
+#import matplotlib.pyplot as plt
 #plot(w)
 #plt.show()
 
