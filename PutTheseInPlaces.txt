@@ -1,0 +1,29 @@
+class TrimmedBrezziDouglasMariniCubeEdge(VectorFiatElement):
+    def __init__(self, cell, degree):
+        super(TrimmedBrezziDouglasMariniCubeEdge, self).__init__(FIAT.TrimmedBrezziDouglasMariniCubeEdge(cell, degree))
+"Put that in fiat_elements.py inside finat."
+
+class TrimmedBrezziDouglasMariniCubeFace(VectorFiatElement):
+    def __init__(self, cell, degree):
+        super(TrimmedBrezziDouglasMariniCubeFace, self).__init__(FIAT.TrimmedBrezziDouglasMariniCubeFace(cell, degree))
+"Put that down a few linese."
+
+from .fiat_elements import TrimmedBrezziDouglasMariniCubeEdge, TrimmedBrezziDouglasMariniCubeFace
+"Put that in __init__.py in finat"
+
+from FIAT.Justin_brezzi_douglas_marini_cube import TrimmedBrezziDouglasMariniCubeEdge, TrimmedBrezziDouglasMariniCubeFace
+"Put that in __init__.py in fiat"
+
+    "TBDMCE": finat.TrimmedBrezziDouglasMariniCubeEdge,
+    "TBDMCF": finat.TrimmedBrezziDouglasMariniCubeFace,
+"Put that in tsfc/tsfc/finatinterface.py"
+
+    "TBDMCE": FIAT.TrimmedBrezziDouglasMariniCubeEdge,
+    "TBDMCF": FIAT.TrimmedBrezziDouglasMariniCubeFace,
+"Put that in tsfc/tsfc/fiatinterface.py"
+
+register_element2("TBDMCE", 1, HCurl, "covariant Piola", (1, None),
+                  ("quadrilateral",))
+register_element2("TBDMCF", 1, HDiv, "contravariant Piola", (1, None),
+                  ("quadrilateral",))
+"Put that in ufl/ufl/finiteelement/elementlist.py
