@@ -10,7 +10,7 @@ x = SpatialCoordinate(mesh)
 # Define function spaces and mixed (product) space
 #BDM = FunctionSpace(mesh, "BDM" if not quadrilateral else "RTCF", 1)
 BDM = FunctionSpace(mesh, "TBDMCF", 2)
-DG = FunctionSpace(mesh, "CG", 1)
+DG = FunctionSpace(mesh, "DPC", 1)
 W = BDM * DG
 
 #W = FunctionSpace(mesh, "Brezzi-Douglas-Marini Cube Face", 2)
