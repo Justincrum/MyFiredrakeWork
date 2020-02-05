@@ -187,6 +187,36 @@ def e_lambda_1_2d(deg, dx, dy, x_mid, y_mid):
     result = EL + ELTilde
     return result
 
+def determine_f_lambda_portions_2d(deg):
+    if (deg < 2):
+        DegsOfIteration = []
+    else:
+        DegsOfIteration = []
+        for i in range(2, deg+1):
+            DegsOfIteration += [i]
+        
+    return DegsOfIteration
+
+def f_lambda_1_2d_pieces(current_deg, dx, dy, x_mid, y_mid):
+   if (current_deg == 2):
+       FLpiece = [(leg(0, x_mid) * leg(0, y_mid) * dy[0] * dy[1], 0)]
+       FLpiece += [(0, leg(0, x_mid) * le(0, y_mid) * dx[0] * dx[1])]
+    else:
+        target_power = current_deg - 2
+        FLpiece = []
+        for j in range(0, target_power + 1):
+            k = target_power - j
+            FLpiece += [(leg(j, x_mid) * leg(k, y_mid) * dy[0] * dy[1], 0)]
+            FLpiece += [(0, leg(j, x_mid) * leg(k, y_mid) * dx[0] * dx[1])]
+    return FLpiece
+
+def f_lambda_1_2d_trim(deg, dx, dy, x_mid, y_mid):
+    DegsOfIteration = determine_f_lambda_portions_2d(deg)
+    FL = []
+    for i in DegsOfIteration:
+        FL += f_lambda_1_2d_pieces(i, dx, dy, x_mid, y_mid)
+    return tuple(FL)
+
 
 def f_lambda_1_2d(deg, dx, dy, x_mid, y_mid):
     FL = []
@@ -209,7 +239,7 @@ def f_lambda_1_2d_tilde(deg, dx, dy, x_mid, y_mid):
     return tuple(FLTilde)
 
 def trimmed_f_lambda(deg, dx, dy, x_mid, y_mid):
-    FL = f_lambda_1_2d(deg, dx, dy, x_mid, y_mid)
+    FL = f_lambda_1_2d_trim(deg, dx, dy, x_mid, y_mid)
     FLT = f_lambda_1_2d_tilde(deg, dx, dy, x_mid, y_mid)
     result = FL + FLT
     return result
