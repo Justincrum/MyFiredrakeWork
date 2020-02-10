@@ -24,7 +24,8 @@ x = SpatialCoordinate(mesh)
 # Define function spaces and mixed (product) space
 ###BDM = FunctionSpace(mesh, "BDM" if not quadrilateral else "RTCF", 1)
 BDM = FunctionSpace(mesh, "TBDMCE", 2)
-DG = FunctionSpace(mesh, "DG", 2)
+###DG = FunctionSpace(mesh, "DG", 0)
+DG = FunctionSpace(mesh, "DPC", 2)
 W = BDM * DG
 
 # Define trial and test functions
