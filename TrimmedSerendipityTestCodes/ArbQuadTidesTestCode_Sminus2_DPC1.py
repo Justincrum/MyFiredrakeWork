@@ -9,7 +9,7 @@ PolyDegree = 2
 UErrors = []
 SigErrors = []
 CellCount = []
-Times = 5
+Times = 6
 
 for i in range (2, Times + 3):
 
@@ -111,4 +111,7 @@ for i in range(0, Times):
 
 
 from tabulate import tabulate
-print(tabulate([[CellCount[0], UErrors[0], '', SigErrors[0], ''], [CellCount[1], UErrors[1], Rates[0], SigErrors[1], SigRates[0]], [CellCount[2], UErrors[2], Rates[1], SigErrors[2], SigRates[1]], [CellCount[3], UErrors[3], Rates[2], SigErrors[3], SigRates[2]], [CellCount[4], UErrors[4], Rates[3], SigErrors[4], SigRates[3]]], headers = ['Cells' , 'UError', 'URate', 'SigError', 'SigRate']))
+
+table = [[CellCount[k], UErrors[k], Rates[k-1], SigErrors[k], SigRates[k-1]] for k in range(1, Times + 1)]
+headers = ['Cells' , 'UError', 'URate', 'SigError', 'SigRate']
+print(tabulate(table, headers))
