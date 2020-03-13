@@ -9,7 +9,7 @@ PolyDegree = 3
 UErrors = []
 SigErrors = []
 CellCount = []
-Times = 5
+Times = 3
 
 for i in range (2, Times + 3):
 
@@ -90,6 +90,9 @@ for i in range (2, Times + 3):
 
     ErrVal = norms.errornorm(uex, u)
     SigErrVal = norms.errornorm(sigmaex, sigma)
+    #DivErr = norms.errornorm(div(sigmaex), div(sigma))
+    print(div(sigmaex))
+    print(DivErr)
     #print(ErrVal, SigErrVal)
 
     UErrors.append(ErrVal)
