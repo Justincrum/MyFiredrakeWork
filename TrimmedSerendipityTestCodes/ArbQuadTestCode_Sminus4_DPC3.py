@@ -5,11 +5,11 @@ from firedrake import *
 import numpy as np
 import matplotlib.pyplot as plt
 
-PolyDegree = 3
+PolyDegree = 4
 UErrors = []
 SigErrors = []
 CellCount = []
-Times = 3
+Times = 7
 
 for i in range (2, Times + 3):
 
@@ -54,11 +54,10 @@ for i in range (2, Times + 3):
                 mesh.coordinates.dat.data[j,1] = Y
 
     #Testing out using trimmed serendipity space.
-    #Sminus = FunctionSpace(mesh, "SminusE", 3)
-    S = FunctionSpace(mesh, "BDMCE", 3)
-    DPC = FunctionSpace(mesh, "DPC", 2)
-    #W = Sminus * DPC
-    W = S * DPC
+    Sminus = FunctionSpace(mesh, "SminusE", PolyDegree)
+    DPC = FunctionSpace(mesh, "DPC", PolyDegree -1)
+    W = Sminus * DPC
+
     sigma, u = TrialFunctions(W)
     tau, v = TestFunctions(W)
 
@@ -91,9 +90,6 @@ for i in range (2, Times + 3):
 
     ErrVal = norms.errornorm(uex, u)
     SigErrVal = norms.errornorm(sigmaex, sigma)
-    #DivErr = norms.errornorm(div(sigmaex), div(sigma))
-    #print(div(sigmaex))
-    #print(DivErr)
     #print(ErrVal, SigErrVal)
 
     UErrors.append(ErrVal)
@@ -113,6 +109,7 @@ for i in range(0, Times):
     SigRates[i] = np.log2(SigErrors[i] / SigErrors[i+1])
 
 
-
 from tabulate import tabulate
-print(tabulate([[CellCount[0], UErrors[0], '', SigErrors[0], ''], [CellCount[1], UErrors[1], Rates[0], SigErrors[1], SigRates[0]], [CellCount[2], UErrors[2], Rates[1], SigErrors[2], SigRates[1]], [CellCount[3], UErrors[3], Rates[2], SigErrors[3], SigRates[2]], [CellCount[4], UErrors[4], Rates[3], SigErrors[4], SigRates[3]]], headers = ['Cells' , 'UError', 'URate', 'SigError', 'SigRate']))
+table = [[CellCount[k], UErrors[k], Rates[k-1], SigErrors[k], SigRates[k-1]] for k in range(1, Times + 1)]
+headers = ['Cells' , 'UError', 'URate', 'SigError', 'SigRate']
+print(tabulate(table, headers))
