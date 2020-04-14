@@ -9,7 +9,7 @@ PolyDegree = 3
 UErrors = []
 SigErrors = []
 CellCount = []
-Times = 3
+Times = 5
 
 for i in range (2, Times + 3):
 

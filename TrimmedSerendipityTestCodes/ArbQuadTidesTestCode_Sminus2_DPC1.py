@@ -57,7 +57,7 @@ for i in range (2, Times + 3):
     Sminus = FunctionSpace(mesh, "SminusE", PolyDegree)
     DPC = FunctionSpace(mesh, "DPC", PolyDegree -1)
     W = Sminus * DPC
-
+    #print(FunctionSpace.dof_count(Sminus) * FunctionSPace.dof_count(DPC))
     sigma, u = TrialFunctions(W)
     tau, v = TestFunctions(W)
 

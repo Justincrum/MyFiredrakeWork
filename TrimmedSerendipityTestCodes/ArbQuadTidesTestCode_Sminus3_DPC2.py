@@ -9,7 +9,8 @@ PolyDegree = 3
 UErrors = []
 SigErrors = []
 CellCount = []
-Times = 7
+DofCount = []
+Times = 5
 
 for i in range (2, Times + 3):
 
@@ -52,12 +53,13 @@ for i in range (2, Times + 3):
             if(PowerX % 2 == 1):
                 Y += (1.0 / (2.0 * Cells))
                 mesh.coordinates.dat.data[j,1] = Y
-
+    import matplotlib.pyplot as plt
+    plot.triplot(mesh)
     #Testing out using trimmed serendipity space.
     Sminus = FunctionSpace(mesh, "SminusE", PolyDegree)
     DPC = FunctionSpace(mesh, "DPC", PolyDegree -1)
     W = Sminus * DPC
-
+    Dofs = W.dim()
     sigma, u = TrialFunctions(W)
     tau, v = TestFunctions(W)
 
@@ -95,7 +97,7 @@ for i in range (2, Times + 3):
     UErrors.append(ErrVal)
     SigErrors.append(SigErrVal)
     CellCount.append(Cells)
-
+    DofCount.append(Dofs)
 
 UErrors = np.array(UErrors)
 SigErrors = np.array(SigErrors)
@@ -110,6 +112,6 @@ for i in range(0, Times):
 
 
 from tabulate import tabulate
-table = [[CellCount[k], UErrors[k], Rates[k-1], SigErrors[k], SigRates[k-1]] for k in range(1, Times + 1)]
-headers = ['Cells' , 'UError', 'URate', 'SigError', 'SigRate']
+table = [[CellCount[k], UErrors[k], Rates[k-1], SigErrors[k], SigRates[k-1], DofCount[k]] for k in range(1, Times + 1)]
+headers = ['Cells' , 'UError', 'URate', 'SigError', 'SigRate', 'DoFs']
 print(tabulate(table, headers))

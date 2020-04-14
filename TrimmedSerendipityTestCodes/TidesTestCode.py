@@ -4,12 +4,12 @@
 from firedrake import *
 
 
-N = 32
+N = 2
 mesh = UnitSquareMesh(N, N, quadrilateral=True)
 # mh = MeshHierarchy(base_msh, 0)
 # mesh = mh[-1]
 
-BDM = FunctionSpace(mesh, "SminusE", 2)
+BDM = FunctionSpace(mesh, "SminusDiv", 2)
 DG = FunctionSpace(mesh, "DPC", 1)
 W = BDM * DG
 
@@ -91,6 +91,4 @@ solve(a == L, w, Jp=apc, solver_parameters=params)
 sigma, u = w.split()
 
 print(errornorm(uex, u))
-import matplotlib.pyplot as plt
-plot(u)
-plt.show()
+
