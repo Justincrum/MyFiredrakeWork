@@ -1,3 +1,8 @@
+"""Directions for how to create a new finite element in firedrake.  The trimmedSerendipity branch already has the updates for both 2 and 3 dimensional trimmed serendipity elements."
+
+
+
+
 class TrimmedBrezziDouglasMariniCubeEdge(VectorFiatElement):
     def __init__(self, cell, degree):
         super(TrimmedBrezziDouglasMariniCubeEdge, self).__init__(FIAT.TrimmedBrezziDouglasMariniCubeEdge(cell, degree))
