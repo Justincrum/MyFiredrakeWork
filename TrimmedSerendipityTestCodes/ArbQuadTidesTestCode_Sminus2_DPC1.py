@@ -9,6 +9,7 @@ PolyDegree = 2
 UErrors = []
 SigErrors = []
 CellCount = []
+DofCount = []
 Times = 5
 
 for i in range (2, Times + 3):
@@ -57,7 +58,7 @@ for i in range (2, Times + 3):
     Sminus = FunctionSpace(mesh, "SminusE", PolyDegree)
     DPC = FunctionSpace(mesh, "DPC", PolyDegree -1)
     W = Sminus * DPC
-    #print(FunctionSpace.dof_count(Sminus) * FunctionSPace.dof_count(DPC))
+    Dofs = W.dim()
     sigma, u = TrialFunctions(W)
     tau, v = TestFunctions(W)
 
@@ -94,7 +95,8 @@ for i in range (2, Times + 3):
 
     UErrors.append(ErrVal)
     SigErrors.append(SigErrVal)
-    CellCount.append(Cells)
+    CellCount.append(Cells * Cells)
+    DofCount.append(Dofs)
 
 
 UErrors = np.array(UErrors)
@@ -102,16 +104,28 @@ SigErrors = np.array(SigErrors)
 Leng = np.max(np.shape(UErrors))
 Rates = np.zeros([Leng - 1, 1])
 SigRates = np.zeros([Leng - 1, 1])
+SharedDofs = np.zeros([Leng, 1])
+BoundaryDofs = np.zeros([Leng, 1])
+NonbdDofs = np.zeros([Leng, 1])
 for i in range(0, Times):
     h1 = 1.0 / CellCount[i]
     h2 = 1.0 / CellCount[i+1]
     Rates[i] = np.log2(UErrors[i] / UErrors[i+1])
     SigRates[i] = np.log2(SigErrors[i] / SigErrors[i+1])
+    CellsAcross = int(np.sqrt(CellCount[i]))
+
+for i in range(0, Times + 1):
+    CellsAcross = int(np.sqrt(CellCount[i]))
+    SharedDofs[i] = (PolyDegree + 1) * (2 * CellsAcross * CellsAcross - 2 * CellsAcross)
+    BoundaryDofs[i] = (PolyDegree + 1) * ( CellsAcross * 4)
+    NonbdDofs[i] = DofCount[i] - SharedDofs[i] - BoundaryDofs[i]
 
 
 
 from tabulate import tabulate
 
-table = [[CellCount[k], UErrors[k], Rates[k-1], SigErrors[k], SigRates[k-1]] for k in range(1, Times + 1)]
-headers = ['Cells' , 'UError', 'URate', 'SigError', 'SigRate']
-print(tabulate(table, headers))
+table = [[CellCount[k], UErrors[k], Rates[k-1], SigErrors[k], SigRates[k-1], DofCount[k], 
+        SharedDofs[k], NonbdDofs[k]] for k in range(1, Times + 1)]
+headers = ['Cells' , 'UError', 'URate', 'SigError', 'SigRate', 'Total DoFs', 'Shared DoFs', 'Nonboundary, nonshared DoFs']
+print(tabulate(table, headers), file=open("Sm2DPC1_output.txt", "a"))
+
