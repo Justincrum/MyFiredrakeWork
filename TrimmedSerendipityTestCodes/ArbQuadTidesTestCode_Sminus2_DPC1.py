@@ -4,13 +4,14 @@
 from firedrake import *
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
 
-PolyDegree = 2
+PolyDegree = int(sys.argv[1])
 UErrors = []
 SigErrors = []
 CellCount = []
 DofCount = []
-Times = 5
+Times = int(sys.argv[2])
 
 for i in range (2, Times + 3):
 
