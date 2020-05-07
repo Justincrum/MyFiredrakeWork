@@ -57,8 +57,11 @@ for i in range (2, Times + 3):
 
     #Testing out using trimmed serendipity space.
     Sminus = FunctionSpace(mesh, "SminusE", PolyDegree)
+    RTC = FunctionSpace(mesh, "RTCE", PolyDegree)
     DPC = FunctionSpace(mesh, "DPC", PolyDegree -1)
-    W = Sminus * DPC
+    DQ = FunctionSpace(mesh, "DQ", PolyDegree - 1)
+    #W = Sminus * DPC
+    W = RTC * DQ
     Dofs = W.dim()
     sigma, u = TrialFunctions(W)
     tau, v = TestFunctions(W)
@@ -124,9 +127,10 @@ for i in range(0, Times + 1):
 
 
 from tabulate import tabulate
-
+print("Degree:", PolyDegree, file=open("Comparison_output.txt", "a"))
+print("Tensor Product", file=open("Comparison_output.txt", "a"))
 table = [[CellCount[k], UErrors[k], Rates[k-1], SigErrors[k], SigRates[k-1], DofCount[k], 
         SharedDofs[k], NonbdDofs[k]] for k in range(1, Times + 1)]
 headers = ['Cells' , 'UError', 'URate', 'SigError', 'SigRate', 'Total DoFs', 'Shared DoFs', 'Nonboundary, nonshared DoFs']
-print(tabulate(table, headers), file=open("Sm2DPC1_output.txt", "a"))
+print(tabulate(table, headers), file=open("Comparison_output.txt", "a"))
 
