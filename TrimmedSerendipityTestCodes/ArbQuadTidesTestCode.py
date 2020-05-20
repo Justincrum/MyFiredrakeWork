@@ -120,8 +120,8 @@ for i in range(0, Times):
 
 #for i in range(0, Times + 1):
 #    CellsAcross = int(np.sqrt(CellCount[i]))
-#    SharedDofs[i] = (PolyDegree + 1) * (2 * CellsAcross * CellsAcross - 2 * CellsAcross)
-#    BoundaryDofs[i] = (PolyDegree + 1) * ( CellsAcross * 4)
+#    SharedDofs[i] = (PolyDegree) * (2 * CellsAcross * CellsAcross - 2 * CellsAcross)
+#    BoundaryDofs[i] = (PolyDegree) * ( CellsAcross * 4)
 #    NonbdDofs[i] = DofCount[i] - SharedDofs[i] - BoundaryDofs[i]
 
 for i in range(0, Times + 1):
