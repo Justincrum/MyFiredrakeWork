@@ -26,7 +26,7 @@ for i in range (2, Times + 3):
 
     #Now we'll take the unit square mesh and remodel it so that it is the
     #trapezoid mesh that we're interested in.
-    for j in range(len(mesh.coordinates.dat.data)):
+    """for j in range(len(mesh.coordinates.dat.data)):
         X = mesh.coordinates.dat.data[j][0]
         Y = mesh.coordinates.dat.data[j][1]
         if(i == 1):
@@ -53,13 +53,13 @@ for i in range (2, Times + 3):
                 mesh.coordinates.dat.data[j,1] = Y
             if(PowerX % 2 == 1):
                 Y += (1.0 / (2.0 * Cells))
-                mesh.coordinates.dat.data[j,1] = Y
+                mesh.coordinates.dat.data[j,1] = Y"""
 
     #Testing out using trimmed serendipity space.
     #Sminus = FunctionSpace(mesh, "SminusE", PolyDegree)
     RTC = FunctionSpace(mesh, "RTCE", PolyDegree)
-    #DPC = FunctionSpace(mesh, "DPC", PolyDegree)
-    DQ = FunctionSpace(mesh, "DQ", PolyDegree)
+    #DPC = FunctionSpace(mesh, "DPC", PolyDegree - 1)
+    DQ = FunctionSpace(mesh, "DQ", PolyDegree - 1)
     #W = Sminus * DPC
     W = RTC * DQ
     Dofs = W.dim()
