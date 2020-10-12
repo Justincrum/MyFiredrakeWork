@@ -16,7 +16,8 @@ W1 = HDivElement(TensorProductElement(W1_h, W1_v))
 W_elt = W0 + W1
 W = FunctionSpace(mesh, W_elt) """
 
-W = FunctionSpace(mesh, "SminusE", 2)
+#W = FunctionSpace(mesh, "SminusE", 2)
+W = FunctionSpace(mesh, "SminusCurl", 2)
 
 velocity = as_vector((0.0, 0.0, 1.0))
 u = project(velocity, W)

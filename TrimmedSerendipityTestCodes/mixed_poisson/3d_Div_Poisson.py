@@ -4,29 +4,27 @@ from firedrake import *
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
-for n in range(1, 6):
-    for j in range(3, 6):
+import csv
+for n in range(1, 4):
+    for j in range(3, 7):
         PolyDegree = n
-        #mesh = UnitSquareMesh(8, 8)
         Cells = 2**j
-        mesh = UnitSquareMesh(Cells, Cells, quadrilateral=True)
+        msh = UnitSquareMesh(Cells, Cells, quadrilateral=True)
+        mesh = ExtrudedMesh(msh, layers=Cells, layer_height=1/(Cells))
 
-        #Function spaces, currently testing against implemented spaces RTC * DQ
         Sminus = FunctionSpace(mesh, "SminusDiv", PolyDegree)
         DPC = FunctionSpace(mesh, "DPC", PolyDegree - 1)
-        #DQ = FunctionSpace(mesh, "DQ", PolyDegree - 1)
-        #RTC = FunctionSpace(mesh, "RTCF", PolyDegree)
-        #BDM = FunctionSpace(mesh, "BDM", PolyDegree)
-        #DG = FunctionSpace(mesh, "DG", PolyDegree - 1)
-        #W = BDM * DG
-        #W = RTC * DQ
         W = Sminus * DPC
+        #DQ = FunctionSpace(mesh, "DQ", PolyDegree - 1)
+        #NCF = FunctionSpace(mesh, "NCF", PolyDegree)
+        #W = NCF * DQ
+        DOFs = W.dim()
 
         sigma, u = TrialFunctions(W)
         tau, v = TestFunctions(W)
 
-        x, y = SpatialCoordinate(mesh)
-        uex = sin(pi*x)*sin(pi*y)
+        x, y, z = SpatialCoordinate(mesh)
+        uex = sin(pi*x)*sin(pi*y)*sin(pi*z)
         sigmaex = grad(uex)
         f = -div(grad(uex))
 
@@ -48,17 +46,9 @@ for n in range(1, 6):
 
         ErrVal = norms.errornorm(uex, u)
         SigErrVal = norms.errornorm(sigmaex, sigma)
-
-        file=open("2d_Div_Mixed_poisson.csv", 'a', newline='')
+        Info = [[PolyDegree], [Cells], [DOFs], [ErrVal], [SigErrVal]]
+        file=open("3d-results-poisson-Sminus.csv", 'a', newline='')
         with file:
             write = csv.writer(file)
-            write.writerows('Degree of element')
-            write.writerows(PolyDegree)
-            write.writerows('Number of Cells in x and y')
-            write.writerows(Cells)
-            write.writerows('Error value in u')
-            write.writerows(ErrVal)
-            write.writerows('Error value in sigma')
-            write.writerows(SigErrVal)
-            write.writerows(' ')
-#print(ErrVal, SigErrVal)
+            write.writerows(Info)
+        print(ErrVal, SigErrVal)
