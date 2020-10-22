@@ -5,18 +5,18 @@ import matplotlib.pyplot as plt
 import sys
 #ErrorValues = []
 #GridSize = []
-for p in range(2, 6):
+for p in range(4, 5):
     ErrorValues = []
     RateValues = []
     GridSize = []
-    for j in range(2, 6):
+    for j in range(3, 4):
         PolyDegree = p
         Cells = 2**j
         h = 1 / Cells
         msh = UnitSquareMesh(Cells, Cells, quadrilateral=True)
         mesh = ExtrudedMesh(msh, layers=Cells, layer_height=1/(Cells))
 
-        Sminus = FunctionSpace(mesh, "SminusDiv", PolyDegree)
+        Sminus = FunctionSpace(mesh, "SminusCurl", PolyDegree)
         #NCF = FunctionSpace(mesh, "NCF", PolyDegree)
         x, y, z = SpatialCoordinate(mesh)
         uex = sin(pi*x)*sin(pi*y)*sin(pi*z)
@@ -27,9 +27,9 @@ for p in range(2, 6):
         ErrorValues.append(err)
         GridSize.append(h)
     print(ErrorValues)
-    for j in range(0, len(ErrorValues)-1):
-        top = np.log(ErrorValues[j]/ErrorValues[j+1])
-        bottom = np.log(GridSize[j] / GridSize[j+1])
-        rate = top / bottom
-        RateValues.append(rate)
-    print(RateValues)
+#    for j in range(0, len(ErrorValues)-1):
+#        top = np.log(ErrorValues[j]/ErrorValues[j+1])
+#        bottom = np.log(GridSize[j] / GridSize[j+1])
+#        rate = top / bottom
+#        RateValues.append(rate)
+#    print(RateValues)
