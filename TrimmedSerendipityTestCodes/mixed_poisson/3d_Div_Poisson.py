@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 import csv
-for n in range(1, 4):
+for n in range(2, 3):
     for j in range(3, 7):
         PolyDegree = n
         Cells = 2**j
@@ -24,31 +24,37 @@ for n in range(1, 4):
         tau, v = TestFunctions(W)
 
         x, y, z = SpatialCoordinate(mesh)
+        #uex = x*(1-x)*y*(1-y)*z*(1-z)
         uex = sin(pi*x)*sin(pi*y)*sin(pi*z)
+        #uex = e**x*sin(pi*y)*sin(pi*z)
         sigmaex = grad(uex)
         f = -div(grad(uex))
 
         a = (dot(sigma, tau) + div(tau)*u + div(sigma)*v)*dx
-        apc = inner(sigma, tau)*dx + inner(div(sigma), div(tau))*dx + inner(u, v)*dx
+        #apc = inner(sigma, tau)*dx + inner(div(sigma), div(tau))*dx + inner(u, v)*dx
 
         L = -f*v*dx
 
+        #bc = DirichletBC
+
         w = Function(W)
 
-        params = {"mat_type": "matfree",
-                    "pmat_type": "aij",
-                    "ksp_type": "gmres",
-                    "pc_type": "lu",
-                    "ksp_monitor": None}
+        #params = {"mat_type": "matfree",
+        #            "pmat_type": "aij",
+        #            "ksp_type": "gmres",
+        #            "pc_type": "lu",
+        #            "ksp_monitor": None}
 
-        solve(a == L, w, Jp=apc, solver_parameters=params)
+        params = {"mat_type": "aij", "snes_type": "newtonls", "snes_max_it": "2", "snes_convergence_test": "skip", "ksp_type": "preonly", "pc_type": "lu", "pc_factor_mat_solver_type": "mumps", "mat_mumps_icntl_14": "200"}
+
+        solve(a == L, w, solver_parameters=params)
         sigma, u = w.split()
 
         ErrVal = norms.errornorm(uex, u)
         SigErrVal = norms.errornorm(sigmaex, sigma)
         Info = [[PolyDegree], [Cells], [DOFs], [ErrVal], [SigErrVal]]
-        file=open("3d-results-poisson-Sminus.csv", 'a', newline='')
-        with file:
-            write = csv.writer(file)
-            write.writerows(Info)
+        #file=open("3d-Sminus-poly.csv", 'a', newline='')
+        #with file:
+        #    write = csv.writer(file)
+        #    write.writerows(Info)
         print(ErrVal, SigErrVal)
