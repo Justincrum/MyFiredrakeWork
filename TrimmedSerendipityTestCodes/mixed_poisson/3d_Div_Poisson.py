@@ -3,10 +3,16 @@
 from firedrake import *
 import numpy as np
 import matplotlib.pyplot as plt
-import sys
+import argparse
 import csv
-for n in range(2, 3):
-    for j in range(3, 7):
+
+parser = argparse.ArgumentParser(description="Allows for input of order and mesh refinement.")
+parser.add_argument("-O", "--Order", type=int, help="Input the order of the polynomials.")
+parser.add_argument("-S", "--Size", type=int, help="Input the exponent for number of cells of mesh 2**S.")
+args = parser.parse_args()
+
+for n in range(args.Order, args.Order + 1):
+    for j in range(args.Size, args.Size + 1):
         PolyDegree = n
         Cells = 2**j
         msh = UnitSquareMesh(Cells, Cells, quadrilateral=True)
