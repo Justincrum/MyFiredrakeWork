@@ -2,23 +2,25 @@
 from firedrake import *
 import numpy as np
 import matplotlib.pyplot as plt
-import sys
+import csv
 #ErrorValues = []
 #GridSize = []
-for p in range(5, 6):
+
+Data = []
+for p in range(2, 8):
     ErrorValues = []
     RateValues = []
     GridSize = []
-    for j in range(2, 9):
+    PolyDegrees = []
+    NCells = []
+    DOFS = []
+    for j in range(2, 8):
         PolyDegree = p
         Cells = 2**j
         h = 1 / Cells
         mesh = UnitSquareMesh(Cells, Cells, quadrilateral=True)
-        #mesh = ExtrudedMesh(msh, layers=Cells, layer_height=1/(Cells))
-        Sminus = FunctionSpace(mesh, "SminusDiv", PolyDegree)
-        #BDMC = FunctionSpace(mesh, "BDMCF", PolyDegree)
-        #NCF = FunctionSpace(mesh, "RTCF", PolyDegree)
-        #S = FunctionSpace(mesh, "S", PolyDegree)
+        Sminus = FunctionSpace(mesh, "SminusCurl", PolyDegree)
+        DOFs = Sminus.dim()
         x, y = SpatialCoordinate(mesh)
         uex = sin(pi*x)*sin(pi*y)
         sigmaex = grad(uex)
@@ -28,14 +30,21 @@ for p in range(5, 6):
         #err = errornorm(sigmaex, project(sigmaex, NCF))
         ErrorValues.append(err)
         GridSize.append(h)
-    print(ErrorValues)
+        PolyDegrees.append(PolyDegree)
+        NCells.append(Cells)
+        DOFS.append(DOFs)
+        CurrentData = [PolyDegree, Cells, h, DOFs, err]
+        Data.append(CurrentData)
+    #print(ErrorValues)
     for j in range(0, len(ErrorValues)-1):
         top = np.log(ErrorValues[j]/ErrorValues[j+1])
         bottom = np.log(GridSize[j] / GridSize[j+1])
         rate = top / bottom
-        RateValues.append(rate)
-    print(RateValues)
-        #print(errornorm(sigmaex, project(sigmaex, Sminus)))
-        #F = project(sigmaex, Sminus)
-        #print(F.dat.data_ro)
-    
+        RateValues.append([rate])
+    #print(RateValues)
+    #Info = [PolyDegrees, NCells, GridSize, DOFS, ErrorValues]
+file=open("2d-projection-SminusCurl.csv", 'a', newline = '')
+with file:
+    write = csv.writer(file, delimiter=',')
+    write.writerows(Data)
+        #write.writerows(RateValues)    
