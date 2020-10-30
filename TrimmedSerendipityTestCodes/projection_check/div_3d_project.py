@@ -8,7 +8,7 @@ import csv
 ErrorValues = []
 GridSize = []
 Data = []
-for p in range(2, 3):
+for p in range(4, 5):
     ErrorValues = []
     RateValues = []
     GridSize = []
@@ -29,8 +29,9 @@ for p in range(2, 3):
         #uex = e**x*sin(pi*y)*z
         sigmaex = grad(uex)
         #err = errornorm(sigmaex, project(sigmaex, NCF))
-        params = {"mat_type": "aij", "snes_type": "newtonls", "snes_max_it": "2", "snes_convergence_test": "skip", "ksp_type": "preonly", "pc_type": "lu", "pc_factor_mat_solver_type": "mumps", "mat_mumps_icntl_14": "200"}
+        #params = {"mat_type": "aij", "snes_type": "newtonls", "snes_max_it": "2", "snes_convergence_test": "skip", "ksp_type": "preonly", "pc_type": "lu", "pc_factor_mat_solver_type": "mumps", "mat_mumps_icntl_14": "200"}
         #params = {"mat_type":"mat_free", "snes_type": "newtonls", "snes_max_it": "2", "snes_convergence_test": "skip", "ksp_type": "gmres", "pc_type": "lu", "pc_factor_mat_solver_type": "mumps", "mat_mumps_icntl_14": "200"}
+        params={"mat_type": "aij", "ksp_type": "cg", "pc_type": "bjacobi", "sub_pc_type": "ilu", "ksp_rtol": 1e-10}
         err = errornorm(sigmaex, project(sigmaex, Sminus, solver_parameters=params))
         ErrorValues.append(err)
         GridSize.append(h)
@@ -46,7 +47,8 @@ for p in range(2, 3):
         rate = top / bottom
         RateValues.append(rate)
     print(RateValues)
-file=open("3d-projection-SminusCurl.csv", 'a', newline = '')
-with file:
-    write = csv.writer(file, delimiter=',')
-    write.writerows(Data)
+    print(Data)
+#file=open("3d-projection-SminusCurl.csv", 'a', newline = '')
+#with file:
+#    write = csv.writer(file, delimiter=',')
+#    write.writerows(Data)
