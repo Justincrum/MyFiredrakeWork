@@ -1,0 +1,385 @@
+===========================================================================
+failing kernel during pre-schedule check:
+===========================================================================
+---------------------------------------------------------------------------
+KERNEL: form00_cell_integral_otherwise
+---------------------------------------------------------------------------
+ARGUMENTS:
+A: type: np:dtype('float64'), shape: (111, 111), dim_tags: (stride:111, stride:1) aspace: private
+coords: type: np:dtype('float64'), shape: (8, 3), dim_tags: (stride:3, stride:1) aspace: private
+---------------------------------------------------------------------------
+DOMAINS:
+{ [ip1] : 0 <= ip1 <= 5 }
+{ [ip2] : 0 <= ip2 <= 5 }
+{ [ip0] : 0 <= ip0 <= 5 }
+{ [ip2_0] : 0 <= ip2_0 <= 5 }
+{ [j] : 0 <= j <= 113 }
+{ [k] : 0 <= k <= 113 }
+{ [ip1_0] : 0 <= ip1_0 <= 5 }
+{ [j_0] : 0 <= j_0 <= 113 }
+{ [k_0] : 0 <= k_0 <= 113 }
+{ [ip2_1] : 0 <= ip2_1 <= 5 }
+{ [k_1] : 0 <= k_1 <= 113 }
+{ [j_1] : 0 <= j_1 <= 113 }
+{ [k_2] : 0 <= k_2 <= 113 }
+{ [j_2] : 0 <= j_2 <= 113 }
+{ [k_3] : 0 <= k_3 <= 113 }
+{ [j_3] : 0 <= j_3 <= 113 }
+{ [k_4] : 0 <= k_4 <= 113 }
+---------------------------------------------------------------------------
+INAME IMPLEMENTATION TAGS:
+ip0: None
+ip1: None
+ip1_0: None
+ip2: None
+ip2_0: None
+ip2_1: None
+j: None
+j_0: None
+j_1: None
+j_2: None
+j_3: None
+k: None
+k_0: None
+k_1: None
+k_2: None
+k_3: None
+k_4: None
+---------------------------------------------------------------------------
+TEMPORARIES:
+t0: type: np:dtype('float64'), shape: () scope:local
+t1: type: np:dtype('float64'), shape: () scope:local
+t2: type: np:dtype('float64'), shape: () scope:local
+t3: type: np:dtype('float64'), shape: () scope:local
+t4: type: np:dtype('float64'), shape: () scope:local
+t5: type: np:dtype('float64'), shape: () scope:local
+t6: type: np:dtype('float64'), shape: () scope:local
+t7: type: np:dtype('float64'), shape: () scope:local
+t8: type: np:dtype('float64'), shape: () scope:local
+t9: type: np:dtype('float64'), shape: () scope:local
+t10: type: np:dtype('float64'), shape: () scope:local
+t11: type: np:dtype('float64'), shape: () scope:local
+t12: type: np:dtype('float64'), shape: () scope:local
+t13: type: np:dtype('float64'), shape: () scope:local
+t14: type: np:dtype('float64'), shape: () scope:local
+t15: type: np:dtype('float64'), shape: () scope:local
+t16: type: np:dtype('float64'), shape: () scope:local
+t17: type: np:dtype('float64'), shape: () scope:local
+t18: type: np:dtype('float64'), shape: () scope:local
+t19: type: np:dtype('float64'), shape: () scope:local
+t20: type: np:dtype('float64'), shape: () scope:local
+t21: type: np:dtype('float64'), shape: (6, 2), dim_tags: (N1:stride:2, N0:stride:1) scope:local
+t22: type: np:dtype('float64'), shape: (6), dim_tags: (N0:stride:1) scope:local
+t23: type: np:dtype('float64'), shape: () scope:local
+t24: type: np:dtype('float64'), shape: () scope:local
+t25: type: np:dtype('float64'), shape: () scope:local
+t26: type: np:dtype('float64'), shape: () scope:local
+t27: type: np:dtype('float64'), shape: () scope:local
+t28: type: np:dtype('float64'), shape: () scope:local
+t29: type: np:dtype('float64'), shape: (6, 6), dim_tags: (N1:stride:6, N0:stride:1) scope:local
+t30: type: np:dtype('float64'), shape: (6, 6), dim_tags: (N1:stride:6, N0:stride:1) scope:local
+t31: type: np:dtype('float64'), shape: (6, 6), dim_tags: (N1:stride:6, N0:stride:1) scope:local
+t32: type: np:dtype('float64'), shape: (6, 6, 6, 114), dim_tags: (N3:stride:4104, N2:stride:684, N1:stride:114, N0:stride:1) scope:local
+t33: type: np:dtype('float64'), shape: (6, 6, 6, 114), dim_tags: (N3:stride:4104, N2:stride:684, N1:stride:114, N0:stride:1) scope:local
+t34: type: np:dtype('float64'), shape: (6, 6, 6, 114), dim_tags: (N3:stride:4104, N2:stride:684, N1:stride:114, N0:stride:1) scope:local
+t35: type: np:dtype('float64'), shape: () scope:local
+t36: type: np:dtype('float64'), shape: () scope:local
+t37: type: np:dtype('float64'), shape: () scope:local
+t38: type: np:dtype('float64'), shape: () scope:local
+t39: type: np:dtype('float64'), shape: () scope:local
+t40: type: np:dtype('float64'), shape: () scope:local
+t41: type: np:dtype('float64'), shape: () scope:local
+t42: type: np:dtype('float64'), shape: () scope:local
+t43: type: np:dtype('float64'), shape: () scope:local
+t44: type: np:dtype('float64'), shape: () scope:local
+t45: type: np:dtype('float64'), shape: () scope:local
+t46: type: np:dtype('float64'), shape: () scope:local
+t47: type: np:dtype('float64'), shape: () scope:local
+t48: type: np:dtype('float64'), shape: () scope:local
+t49: type: np:dtype('float64'), shape: () scope:local
+t50: type: np:dtype('float64'), shape: () scope:local
+t51: type: np:dtype('float64'), shape: () scope:local
+t52: type: np:dtype('float64'), shape: () scope:local
+t53: type: np:dtype('float64'), shape: () scope:local
+t54: type: np:dtype('float64'), shape: () scope:local
+t55: type: np:dtype('float64'), shape: () scope:local
+t56: type: np:dtype('float64'), shape: () scope:local
+t57: type: np:dtype('float64'), shape: () scope:local
+t58: type: np:dtype('float64'), shape: () scope:local
+t59: type: np:dtype('float64'), shape: () scope:local
+t60: type: np:dtype('float64'), shape: () scope:local
+t61: type: np:dtype('float64'), shape: () scope:local
+t62: type: np:dtype('float64'), shape: () scope:local
+t63: type: np:dtype('float64'), shape: () scope:local
+t64: type: np:dtype('float64'), shape: () scope:local
+t65: type: np:dtype('float64'), shape: () scope:local
+t66: type: np:dtype('float64'), shape: () scope:local
+t67: type: np:dtype('float64'), shape: () scope:local
+t68: type: np:dtype('float64'), shape: () scope:local
+t69: type: np:dtype('float64'), shape: () scope:local
+t70: type: np:dtype('float64'), shape: () scope:local
+t71: type: np:dtype('float64'), shape: () scope:local
+t72: type: np:dtype('float64'), shape: () scope:local
+t73: type: np:dtype('float64'), shape: () scope:local
+t74: type: np:dtype('float64'), shape: (6), dim_tags: (N0:stride:1) scope:local
+t75: type: np:dtype('float64'), shape: (6), dim_tags: (N0:stride:1) scope:local
+t76: type: np:dtype('float64'), shape: (6), dim_tags: (N0:stride:1) scope:local
+t77: type: np:dtype('float64'), shape: (6), dim_tags: (N0:stride:1) scope:local
+t78: type: np:dtype('float64'), shape: () scope:local
+t79: type: np:dtype('float64'), shape: () scope:local
+t80: type: np:dtype('float64'), shape: () scope:local
+t81: type: np:dtype('float64'), shape: () scope:local
+t82: type: np:dtype('float64'), shape: () scope:local
+t83: type: np:dtype('float64'), shape: () scope:local
+t84: type: np:dtype('float64'), shape: () scope:local
+t85: type: np:dtype('float64'), shape: () scope:local
+t86: type: np:dtype('float64'), shape: () scope:local
+t87: type: np:dtype('float64'), shape: () scope:local
+t88: type: np:dtype('float64'), shape: () scope:local
+t89: type: np:dtype('float64'), shape: () scope:local
+t90: type: np:dtype('float64'), shape: () scope:local
+t91: type: np:dtype('float64'), shape: () scope:local
+t92: type: np:dtype('float64'), shape: () scope:local
+t93: type: np:dtype('float64'), shape: () scope:local
+t94: type: np:dtype('float64'), shape: () scope:local
+t95: type: np:dtype('float64'), shape: () scope:local
+t96: type: np:dtype('float64'), shape: () scope:local
+t97: type: np:dtype('float64'), shape: () scope:local
+t98: type: np:dtype('float64'), shape: () scope:local
+t99: type: np:dtype('float64'), shape: () scope:local
+t100: type: np:dtype('float64'), shape: () scope:local
+t101: type: np:dtype('float64'), shape: () scope:local
+t102: type: np:dtype('float64'), shape: () scope:local
+t103: type: np:dtype('float64'), shape: () scope:local
+t104: type: np:dtype('float64'), shape: () scope:local
+t105: type: np:dtype('float64'), shape: () scope:local
+t106: type: np:dtype('float64'), shape: () scope:local
+t107: type: np:dtype('float64'), shape: () scope:local
+t108: type: np:dtype('float64'), shape: (114), dim_tags: (N0:stride:1) scope:local
+t109: type: np:dtype('float64'), shape: (114), dim_tags: (N0:stride:1) scope:local
+t110: type: np:dtype('float64'), shape: (114), dim_tags: (N0:stride:1) scope:local
+t111: type: np:dtype('float64'), shape: (114, 114), dim_tags: (N1:stride:114, N0:stride:1) scope:local
+t112: type: np:dtype('float64'), shape: (114, 114), dim_tags: (N1:stride:114, N0:stride:1) scope:local
+---------------------------------------------------------------------------
+INSTRUCTIONS:
+↱  [36mt0[0m = [35m(-1.0)*coords[2, 1][0m  {id=[32minsn[0m, priority=111}
+└↱ [36mt1[0m = [35mt0 + coords[6, 1][0m  {id=[32minsn_0[0m, priority=110}
+↱└ [36mt2[0m = [35m(-1.0)*coords[0, 1][0m  {id=[32minsn_1[0m, priority=109}
+└↱ [36mt3[0m = [35mt2 + coords[4, 1][0m  {id=[32minsn_2[0m, priority=108}
+↱└ [36mt4[0m = [35m(-1.0)*coords[3, 1] + coords[7, 1][0m  {id=[32minsn_3[0m, priority=107}
+└↱ [36mt5[0m = [35m(-1.0)*coords[1, 1][0m  {id=[32minsn_4[0m, priority=106}
+↱└ [36mt6[0m = [35mt5 + coords[5, 1][0m  {id=[32minsn_5[0m, priority=105}
+└↱ [36mt7[0m = [35m(-1.0)*coords[2, 2][0m  {id=[32minsn_6[0m, priority=104}
+↱└ [36mt8[0m = [35mt7 + coords[6, 2][0m  {id=[32minsn_7[0m, priority=103}
+└↱ [36mt9[0m = [35m(-1.0)*coords[0, 2][0m  {id=[32minsn_8[0m, priority=102}
+↱└ [36mt10[0m = [35mt9 + coords[4, 2][0m  {id=[32minsn_9[0m, priority=101}
+└↱ [36mt11[0m = [35m(-1.0)*coords[3, 2] + coords[7, 2][0m  {id=[32minsn_10[0m, priority=100}
+↱└ [36mt12[0m = [35m(-1.0)*coords[1, 2][0m  {id=[32minsn_11[0m, priority=99}
+└↱ [36mt13[0m = [35mt12 + coords[5, 2][0m  {id=[32minsn_12[0m, priority=98}
+↱└ [36mt14[0m = [35m(-1.0)*coords[2, 0][0m  {id=[32minsn_13[0m, priority=97}
+└↱ [36mt15[0m = [35mt14 + coords[6, 0][0m  {id=[32minsn_14[0m, priority=96}
+↱└ [36mt16[0m = [35m(-1.0)*coords[0, 0][0m  {id=[32minsn_15[0m, priority=95}
+└↱ [36mt17[0m = [35mt16 + coords[4, 0][0m  {id=[32minsn_16[0m, priority=94}
+↱└ [36mt18[0m = [35m(-1.0)*coords[3, 0] + coords[7, 0][0m  {id=[32minsn_17[0m, priority=93}
+└↱ [36mt19[0m = [35m(-1.0)*coords[1, 0][0m  {id=[32minsn_18[0m, priority=92}
+↱└ [36mt20[0m = [35mt19 + coords[5, 0][0m  {id=[32minsn_19[0m, priority=91}
+│  for ip1
+└↱   [36mt23[0m = [35mt21[ip1, 0]*t20 + t21[ip1, 1]*t18[0m  {id=[32minsn_20[0m, priority=90}
+↱└   [36mt24[0m = [35mt21[ip1, 0]*t17 + t21[ip1, 1]*t15[0m  {id=[32minsn_21[0m, priority=89}
+└↱   [36mt25[0m = [35mt21[ip1, 0]*t13 + t21[ip1, 1]*t11[0m  {id=[32minsn_22[0m, priority=88}
+↱└   [36mt26[0m = [35mt21[ip1, 0]*t10 + t21[ip1, 1]*t8[0m  {id=[32minsn_23[0m, priority=87}
+└↱   [36mt27[0m = [35mt21[ip1, 0]*t6 + t21[ip1, 1]*t4[0m  {id=[32minsn_24[0m, priority=86}
+↱└   [36mt28[0m = [35mt21[ip1, 0]*t3 + t21[ip1, 1]*t1[0m  {id=[32minsn_25[0m, priority=85}
+│    for ip2
+└↱     [36mt29[ip1, ip2][0m = [35mt21[ip2, 0]*t28 + t21[ip2, 1]*t27[0m  {id=[32minsn_26[0m, priority=84}
+↱└     [36mt30[ip1, ip2][0m = [35mt21[ip2, 0]*t26 + t21[ip2, 1]*t25[0m  {id=[32minsn_27[0m, priority=83}
+└↱     [36mt31[ip1, ip2][0m = [35mt21[ip2, 0]*t24 + t21[ip2, 1]*t23[0m  {id=[32minsn_28[0m, priority=82}
+ │ end ip1, ip2
+↱└ [36mt35[0m = [35m(-1.0)*coords[4, 0][0m  {id=[32minsn_29[0m, priority=81}
+└↱ [36mt36[0m = [35mt35 + coords[6, 0][0m  {id=[32minsn_30[0m, priority=80}
+↱└ [36mt37[0m = [35mt16 + coords[2, 0][0m  {id=[32minsn_31[0m, priority=79}
+└↱ [36mt38[0m = [35m(-1.0)*coords[5, 0] + coords[7, 0][0m  {id=[32minsn_32[0m, priority=78}
+↱└ [36mt39[0m = [35mt19 + coords[3, 0][0m  {id=[32minsn_33[0m, priority=77}
+└↱ [36mt40[0m = [35m(-1.0)*coords[4, 2][0m  {id=[32minsn_34[0m, priority=76}
+↱└ [36mt41[0m = [35mt40 + coords[6, 2][0m  {id=[32minsn_35[0m, priority=75}
+└↱ [36mt42[0m = [35mt9 + coords[2, 2][0m  {id=[32minsn_36[0m, priority=74}
+↱└ [36mt43[0m = [35m(-1.0)*coords[5, 2] + coords[7, 2][0m  {id=[32minsn_37[0m, priority=73}
+└↱ [36mt44[0m = [35mt12 + coords[3, 2][0m  {id=[32minsn_38[0m, priority=72}
+↱└ [36mt45[0m = [35m(-1.0)*coords[4, 1][0m  {id=[32minsn_39[0m, priority=71}
+└↱ [36mt46[0m = [35mt45 + coords[6, 1][0m  {id=[32minsn_40[0m, priority=70}
+↱└ [36mt47[0m = [35mt2 + coords[2, 1][0m  {id=[32minsn_41[0m, priority=69}
+└↱ [36mt48[0m = [35m(-1.0)*coords[5, 1] + coords[7, 1][0m  {id=[32minsn_42[0m, priority=68}
+↱└ [36mt49[0m = [35mt5 + coords[3, 1][0m  {id=[32minsn_43[0m, priority=67}
+└↱ [36mt50[0m = [35mt35 + coords[5, 0][0m  {id=[32minsn_44[0m, priority=66}
+↱└ [36mt51[0m = [35mt16 + coords[1, 0][0m  {id=[32minsn_45[0m, priority=65}
+└↱ [36mt52[0m = [35m(-1.0)*coords[6, 0] + coords[7, 0][0m  {id=[32minsn_46[0m, priority=64}
+↱└ [36mt53[0m = [35mt14 + coords[3, 0][0m  {id=[32minsn_47[0m, priority=63}
+└↱ [36mt54[0m = [35mt40 + coords[5, 2][0m  {id=[32minsn_48[0m, priority=62}
+↱└ [36mt55[0m = [35mt9 + coords[1, 2][0m  {id=[32minsn_49[0m, priority=61}
+└↱ [36mt56[0m = [35m(-1.0)*coords[6, 2] + coords[7, 2][0m  {id=[32minsn_50[0m, priority=60}
+↱└ [36mt57[0m = [35mt7 + coords[3, 2][0m  {id=[32minsn_51[0m, priority=59}
+└↱ [36mt58[0m = [35mt45 + coords[5, 1][0m  {id=[32minsn_52[0m, priority=58}
+↱└ [36mt59[0m = [35mt2 + coords[1, 1][0m  {id=[32minsn_53[0m, priority=57}
+└↱ [36mt60[0m = [35m(-1.0)*coords[6, 1] + coords[7, 1][0m  {id=[32minsn_54[0m, priority=56}
+↱└ [36mt61[0m = [35mt0 + coords[3, 1][0m  {id=[32minsn_55[0m, priority=55}
+│  for ip0
+└↱   [36mt62[0m = [35mt21[ip0, 0]*t61 + t21[ip0, 1]*t60[0m  {id=[32minsn_56[0m, priority=54}
+↱└   [36mt63[0m = [35mt21[ip0, 0]*t59 + t21[ip0, 1]*t58[0m  {id=[32minsn_57[0m, priority=53}
+└↱   [36mt64[0m = [35mt21[ip0, 0]*t57 + t21[ip0, 1]*t56[0m  {id=[32minsn_58[0m, priority=52}
+↱└   [36mt65[0m = [35mt21[ip0, 0]*t55 + t21[ip0, 1]*t54[0m  {id=[32minsn_59[0m, priority=51}
+└↱   [36mt66[0m = [35mt21[ip0, 0]*t53 + t21[ip0, 1]*t52[0m  {id=[32minsn_60[0m, priority=50}
+↱└   [36mt67[0m = [35mt21[ip0, 0]*t51 + t21[ip0, 1]*t50[0m  {id=[32minsn_61[0m, priority=49}
+└↱   [36mt68[0m = [35mt21[ip0, 0]*t49 + t21[ip0, 1]*t48[0m  {id=[32minsn_62[0m, priority=48}
+↱└   [36mt69[0m = [35mt21[ip0, 0]*t47 + t21[ip0, 1]*t46[0m  {id=[32minsn_63[0m, priority=47}
+└↱   [36mt70[0m = [35mt21[ip0, 0]*t44 + t21[ip0, 1]*t43[0m  {id=[32minsn_64[0m, priority=46}
+↱└   [36mt71[0m = [35mt21[ip0, 0]*t42 + t21[ip0, 1]*t41[0m  {id=[32minsn_65[0m, priority=45}
+└↱   [36mt72[0m = [35mt21[ip0, 0]*t39 + t21[ip0, 1]*t38[0m  {id=[32minsn_66[0m, priority=44}
+↱└   [36mt73[0m = [35mt21[ip0, 0]*t37 + t21[ip0, 1]*t36[0m  {id=[32minsn_67[0m, priority=43}
+│    for ip2_0
+└↱     [36mt74[ip2_0][0m = [35mt21[ip2_0, 0]*t73 + t21[ip2_0, 1]*t72[0m  {id=[32minsn_68[0m, priority=42}
+↱└     [36mt75[ip2_0][0m = [35m(-1.0)*t74[ip2_0][0m  {id=[32minsn_69[0m, priority=41}
+└↱     [36mt76[ip2_0][0m = [35mt21[ip2_0, 0]*t71 + t21[ip2_0, 1]*t70[0m  {id=[32minsn_70[0m, priority=40}
+↱└     [36mt77[ip2_0][0m = [35mt21[ip2_0, 0]*t69 + t21[ip2_0, 1]*t68[0m  {id=[32minsn_71[0m, priority=39}
+│    end ip2_0
+│    for k, j
+└↱       [36mt112[j, k][0m = [35m0.0[0m  {id=[32minsn_72[0m, priority=38}
+ │   end k, j
+ │   for ip1_0
+↱└     [36mt78[0m = [35mt21[ip1_0, 0]*t67 + t21[ip1_0, 1]*t66[0m  {id=[32minsn_73[0m, priority=37}
+└↱     [36mt79[0m = [35m(-1.0)*t78[0m  {id=[32minsn_74[0m, priority=36}
+↱└     [36mt80[0m = [35mt21[ip1_0, 0]*t65 + t21[ip1_0, 1]*t64[0m  {id=[32minsn_75[0m, priority=35}
+└↱     [36mt81[0m = [35m(-1.0)*t80[0m  {id=[32minsn_76[0m, priority=34}
+↱└     [36mt82[0m = [35mt21[ip1_0, 0]*t63 + t21[ip1_0, 1]*t62[0m  {id=[32minsn_77[0m, priority=33}
+└↱     [36mt83[0m = [35mt22[ip0]*t22[ip1_0][0m  {id=[32minsn_78[0m, priority=32}
+ │     for k_0, j_0
+↱└         [36mt111[j_0, k_0][0m = [35m0.0[0m  {id=[32minsn_79[0m, priority=31}
+│      end k_0, j_0
+│      for ip2_1
+└↱       [36mt84[0m = [35mt77[ip2_1]*t80 + (-1.0)*t82*t76[ip2_1][0m  {id=[32minsn_80[0m, priority=30}
+↱└       [36mt85[0m = [35mt82*t30[ip1_0, ip2_1][0m  {id=[32minsn_81[0m, priority=29}
+└↱       [36mt86[0m = [35mt29[ip1_0, ip2_1]*t76[ip2_1] + (-1.0)*t77[ip2_1]*t30[ip1_0, ip2_1][0m  {id=[32minsn_82[0m, priority=28}
+↱└       [36mt87[0m = [35mt78*t86 + t31[ip1_0, ip2_1]*t84 + t74[ip2_1]*(t85 + (-1.0)*t29[ip1_0, ip2_1]*t80)[0m  {id=[32minsn_83[0m, priority=27}
+└↱       [36mt88[0m = [35mabs(t87)*t83*t22[ip2_1][0m  {id=[32minsn_84[0m, priority=26}
+↱└       [36mt89[0m = [35m1.0 / t87[0m  {id=[32minsn_85[0m, priority=25}
+└↱       [36mt90[0m = [35mt86*t89[0m  {id=[32minsn_86[0m, priority=24}
+↱└       [36mt91[0m = [35mt84*t89[0m  {id=[32minsn_87[0m, priority=23}
+└↱       [36mt92[0m = [35m(t74[ip2_1]*t30[ip1_0, ip2_1] + (-1.0)*t31[ip1_0, ip2_1]*t76[ip2_1])*t89[0m  {id=[32minsn_88[0m, priority=22}
+↱└       [36mt93[0m = [35m(t78*t76[ip2_1] + t80*t75[ip2_1])*t89[0m  {id=[32minsn_89[0m, priority=21}
+└↱       [36mt94[0m = [35m(t31[ip1_0, ip2_1]*t77[ip2_1] + (-1.0)*t74[ip2_1]*t29[ip1_0, ip2_1])*t89[0m  {id=[32minsn_90[0m, priority=20}
+↱└       [36mt95[0m = [35m(t74[ip2_1]*t82 + (-1.0)*t78*t77[ip2_1])*t89[0m  {id=[32minsn_91[0m, priority=19}
+└↱       [36mt96[0m = [35mt88*(t94*t95 + t90*t91 + t92*t93)[0m  {id=[32minsn_92[0m, priority=18}
+↱└       [36mt97[0m = [35m(t85 + t29[ip1_0, ip2_1]*t81)*t89[0m  {id=[32minsn_93[0m, priority=17}
+└↱       [36mt98[0m = [35m(t31[ip1_0, ip2_1]*t80 + t30[ip1_0, ip2_1]*t79)*t89[0m  {id=[32minsn_94[0m, priority=16}
+↱└       [36mt99[0m = [35m(t78*t29[ip1_0, ip2_1] + (-1.0)*t31[ip1_0, ip2_1]*t82)*t89[0m  {id=[32minsn_95[0m, priority=15}
+└↱       [36mt100[0m = [35mt88*(t99*t95 + t97*t91 + t98*t93)[0m  {id=[32minsn_96[0m, priority=14}
+↱└       [36mt101[0m = [35mt88*(t95*t95 + t91*t91 + t93*t93)[0m  {id=[32minsn_97[0m, priority=13}
+└↱       [36mt102[0m = [35mt88*(t94*t99 + t90*t97 + t92*t98)[0m  {id=[32minsn_98[0m, priority=12}
+↱└       [36mt103[0m = [35mt88*(t99*t99 + t97*t97 + t98*t98)[0m  {id=[32minsn_99[0m, priority=11}
+└↱       [36mt104[0m = [35mt88*(t95*t99 + t91*t97 + t93*t98)[0m  {id=[32minsn_100[0m, priority=10}
+↱└       [36mt105[0m = [35mt88*(t94*t94 + t90*t90 + t92*t92)[0m  {id=[32minsn_101[0m, priority=9}
+└↱       [36mt106[0m = [35mt88*(t99*t94 + t97*t90 + t98*t92)[0m  {id=[32minsn_102[0m, priority=8}
+↱└       [36mt107[0m = [35mt88*(t95*t94 + t91*t90 + t93*t92)[0m  {id=[32minsn_103[0m, priority=7}
+│        for k_1
+└↱         [36mt108[k_1][0m = [35mt32[ip0, ip1_0, ip2_1, k_1]*t105 + t34[ip0, ip1_0, ip2_1, k_1]*t107 + t33[ip0, ip1_0, ip2_1, k_1]*t106[0m  {id=[32minsn_104[0m, priority=6}
+↱└         [36mt109[k_1][0m = [35mt32[ip0, ip1_0, ip2_1, k_1]*t102 + t34[ip0, ip1_0, ip2_1, k_1]*t104 + t33[ip0, ip1_0, ip2_1, k_1]*t103[0m  {id=[32minsn_105[0m, priority=5}
+└↱         [36mt110[k_1][0m = [35mt32[ip0, ip1_0, ip2_1, k_1]*t96 + t34[ip0, ip1_0, ip2_1, k_1]*t101 + t33[ip0, ip1_0, ip2_1, k_1]*t100[0m  {id=[32minsn_106[0m, priority=4}
+ │       end k_1
+ │       for j_1, k_2
+↱└           [36mt111[j_1, k_2][0m = [35mt111[j_1, k_2] + t108[k_2]*t32[ip0, ip1_0, ip2_1, j_1] + t110[k_2]*t34[ip0, ip1_0, ip2_1, j_1] + t109[k_2]*t33[ip0, ip1_0, ip2_1, j_1][0m  {id=[32minsn_107[0m, priority=3}
+│      end ip2_1, j_1, k_2
+│      for k_3, j_2
+└↱         [36mt112[j_2, k_3][0m = [35mt112[j_2, k_3] + t111[j_2, k_3][0m  {id=[32minsn_108[0m, priority=2}
+ │   end ip1_0, k_3, j_2
+ │   for k_4, j_3
+ └       [36mA[j_3 + (k_4 + 3*j_3) // 111, k_4 + 3*j_3 + (-111)*((k_4 + 3*j_3) // 111)][0m = [35mA[j_3 + (k_4 + 3*j_3) // 111, k_4 + 3*j_3 + (-111)*((k_4 + 3*j_3) // 111)] + t112[j_3, k_4][0m  {id=[32minsn_109[0m, priority=1}
+   end ip0, k_4, j_3
+---------------------------------------------------------------------------
+===========================================================================
+Traceback (most recent call last):
+  File "/home/u28/jcrum/firedrake/firedrake/src/PyOP2/pyop2/caching.py", line 197, in __new__
+    return cls._cache_lookup(key)
+  File "/home/u28/jcrum/firedrake/firedrake/src/PyOP2/pyop2/caching.py", line 205, in _cache_lookup
+    return cls._cache[key]
+KeyError: (47056814630704, 'cd909bb31af029d9130fd7487491d459', <class 'pyop2.base.Set'>, True, True, True, False, <class 'pyop2.base.Arg'>, <Access.INC: 4>, (<class 'pyop2.petsc_base.Mat'>, dtype('float64'), (((1, 1),),)), ((<class 'pyop2.base.Map'>, 111, (4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13)), (<class 'pyop2.base.Map'>, 111, (4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13))), False, 0, 0, <class 'pyop2.base.Arg'>, <Access.READ: 1>, (<class 'pyop2.petsc_base.Dat'>, dtype('float64'), (<class 'pyop2.petsc_base.DataSet'>, (3,), (<class 'pyop2.base.Set'>,))), ((<class 'pyop2.base.Map'>, 8, (1, 1, 1, 1, 1, 1, 1, 1)),), False, 1, None, <class 'pyop2.sequential.JITModule'>, 4)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/u28/jcrum/firedrake/firedrake/src/PyOP2/pyop2/compilation.py", line 275, in get_so
+    return ctypes.CDLL(soname)
+  File "/opt/ohpc/pub/apps/python/3.8.2/lib/python3.8/ctypes/__init__.py", line 373, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: /home/u28/jcrum/firedrake/firedrake/.cache/pyop2/35/6a8dc5a7728cd9c9302dc09b777d46.so: cannot open shared object file: No such file or directory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "div_3d_project.py", line 35, in <module>
+    err = errornorm(sigmaex, project(sigmaex, Sminus, solver_parameters=params))
+  File "/home/u28/jcrum/firedrake/firedrake/src/firedrake/firedrake/adjoint/projection.py", line 29, in wrapper
+    output = project(*args, **kwargs)
+  File "/home/u28/jcrum/firedrake/firedrake/src/firedrake/firedrake/projection.py", line 90, in project
+    val = Projector(v, V, bcs=bcs, solver_parameters=solver_parameters,
+  File "/home/u28/jcrum/firedrake/firedrake/src/firedrake/firedrake/projection.py", line 170, in project
+    self.apply_massinv(self.target, self.rhs)
+  File "/home/u28/jcrum/firedrake/firedrake/src/firedrake/firedrake/projection.py", line 159, in apply_massinv
+    return self.solver.solve
+  File "/home/u28/jcrum/firedrake/firedrake/src/PyOP2/pyop2/utils.py", line 62, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+  File "/home/u28/jcrum/firedrake/firedrake/src/firedrake/firedrake/projection.py", line 146, in solver
+    return firedrake.LinearSolver(self.A, solver_parameters=self.solver_parameters)
+  File "/home/u28/jcrum/firedrake/firedrake/src/PyOP2/pyop2/utils.py", line 62, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+  File "/home/u28/jcrum/firedrake/firedrake/src/firedrake/firedrake/projection.py", line 140, in A
+    A = firedrake.assemble(a, bcs=self.bcs,
+  File "/home/u28/jcrum/firedrake/firedrake/src/firedrake/firedrake/adjoint/assembly.py", line 17, in wrapper
+    output = assemble(*args, **kwargs)
+  File "/home/u28/jcrum/firedrake/firedrake/src/firedrake/firedrake/assemble.py", line 101, in assemble
+    m = l()
+  File "/home/u28/jcrum/firedrake/firedrake/src/PyOP2/pyop2/base.py", line 3562, in compute
+    fun = self._jitmodule
+  File "/home/u28/jcrum/firedrake/firedrake/src/PyOP2/pyop2/utils.py", line 62, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+  File "/home/u28/jcrum/firedrake/firedrake/src/PyOP2/pyop2/sequential.py", line 206, in _jitmodule
+    return JITModule(self.kernel, self.iterset, *self.args,
+  File "/home/u28/jcrum/firedrake/firedrake/src/PyOP2/pyop2/caching.py", line 199, in __new__
+    obj = make_obj()
+  File "/home/u28/jcrum/firedrake/firedrake/src/PyOP2/pyop2/caching.py", line 189, in make_obj
+    obj.__init__(*args, **kwargs)
+  File "/home/u28/jcrum/firedrake/firedrake/src/PyOP2/pyop2/sequential.py", line 101, in __init__
+    self.compile()
+  File "/home/u28/jcrum/firedrake/firedrake/src/PyOP2/pyop2/sequential.py", line 153, in compile
+    self._fun = compilation.load(self,
+  File "/home/u28/jcrum/firedrake/firedrake/src/PyOP2/pyop2/compilation.py", line 489, in load
+    dll = compiler.get_so(code, extension)
+  File "/home/u28/jcrum/firedrake/firedrake/src/PyOP2/pyop2/compilation.py", line 285, in get_so
+    f.write(jitmodule.code_to_compile)
+  File "/home/u28/jcrum/firedrake/firedrake/src/PyOP2/pyop2/utils.py", line 62, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+  File "/home/u28/jcrum/firedrake/firedrake/src/PyOP2/pyop2/sequential.py", line 125, in code_to_compile
+    code = loopy.generate_code_v2(wrapper)
+  File "/home/u28/jcrum/firedrake/firedrake/src/loopy/loopy/codegen/__init__.py", line 601, in generate_code_v2
+    generate_code_for_a_single_kernel(in_knl_callable.subkernel,
+  File "/home/u28/jcrum/firedrake/firedrake/src/loopy/loopy/codegen/__init__.py", line 436, in generate_code_for_a_single_kernel
+    kernel = get_one_scheduled_kernel(kernel, callables_table)
+  File "/home/u28/jcrum/firedrake/firedrake/src/loopy/loopy/schedule/__init__.py", line 2139, in get_one_scheduled_kernel
+    result = _get_one_scheduled_kernel_inner(kernel,
+  File "/home/u28/jcrum/firedrake/firedrake/src/loopy/loopy/schedule/__init__.py", line 2118, in _get_one_scheduled_kernel_inner
+    return next(iter(generate_loop_schedules(kernel, callables_table)))
+  File "/home/u28/jcrum/firedrake/firedrake/src/loopy/loopy/schedule/__init__.py", line 1926, in generate_loop_schedules
+    for sched in generate_loop_schedules_inner(kernel,
+  File "/home/u28/jcrum/firedrake/firedrake/src/loopy/loopy/schedule/__init__.py", line 1938, in generate_loop_schedules_inner
+    pre_schedule_checks(kernel, callables_table)
+  File "/home/u28/jcrum/firedrake/firedrake/src/loopy/loopy/check.py", line 816, in pre_schedule_checks
+    check_bounds(kernel)
+  File "/home/u28/jcrum/firedrake/firedrake/src/loopy/loopy/check.py", line 483, in check_bounds
+    insn.with_transformed_expressions(run_acm)
+  File "/home/u28/jcrum/firedrake/firedrake/src/loopy/loopy/kernel/instruction.py", line 973, in with_transformed_expressions
+    assignee=f(self.assignee, *args, **kwargs),
+  File "/home/u28/jcrum/firedrake/firedrake/src/loopy/loopy/check.py", line 480, in run_acm
+    acm(expr)
+  File "/home/u28/jcrum/firedrake/firedrake/lib/python3.8/site-packages/pymbolic/mapper/__init__.py", line 134, in __call__
+    return method(expr, *args, **kwargs)
+  File "/home/u28/jcrum/firedrake/firedrake/src/loopy/loopy/check.py", line 463, in map_subscript
+    raise LoopyError("'%s' in instruction '%s' "
+loopy.diagnostic.LoopyError: 'A[j_3 + (k_4 + 3*j_3) // 111, k_4 + 3*j_3 + (-111)*((k_4 + 3*j_3) // 111)]' in instruction 'insn_109' accesses out-of-bounds array element
