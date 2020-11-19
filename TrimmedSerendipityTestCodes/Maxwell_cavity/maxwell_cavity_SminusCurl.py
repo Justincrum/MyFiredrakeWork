@@ -7,15 +7,19 @@ import numpy as np
 import csv
 OverallEigenvalueList = []
 iterationCount = []
-for deg in range(1, 4):
-    for j in range(1, 6):
+for deg in range(4, 5):
+    for j in range(2, 6):
         N = 2 ** j
         msh = RectangleMesh(N, N, np.pi, np.pi, quadrilateral=True)
+        mesh = ExtrudedMesh(msh, layers=N, layer_height=np.pi/(N)) 
         # Some finer meshes for visualisation
         # deg = 1
-        V = FunctionSpace(msh, "SminusCurl", deg)
+        #V = FunctionSpace(mesh, "SminusCurl", deg)
+        V = FunctionSpace(mesh, "NCE", deg)
         u = TrialFunction(V)
         v = TestFunction(V)
+        PETSc.Sys.Print("DoFs of V are:")
+        PETSc.Sys.Print(V.dim())
                 
         a = (inner(curl(u), curl(v)))*dx
         mss = inner(u, v)*dx
@@ -64,9 +68,9 @@ for deg in range(1, 4):
             vr, wr = A.getVecs()
             vi, wi = A.getVecs()
             #
-            Print()
-            Print("        k          ||Ax-kx||/||kx||")
-            Print("----------------- ------------------")
+            #Print()
+            #Print("        k          ||Ax-kx||/||kx||")
+            #Print("----------------- ------------------")
             EigenList = []
             for j, i in enumerate(inds):
                 k = E.getEigenpair(i, vr, vi)
@@ -79,11 +83,12 @@ for deg in range(1, 4):
                 else:
                 #    a = 2
                     Print(" %12f      %12g" % (k.real, error))
-                EigenList += [(k.real, error)]
-        OverallEigenvalueList += [EigenList]
-#    file=open('TrimmedS_Eigenvalue_Results.csv', 'a', newline='')
-#    with file:
-#        write = csv.writer(file)
+                #EigenList += [(k.real, error)]
+                OverallEigenvalueList.append([k.real, error])
+    file=open('Pi_NCE_Eigenvalue_Results.csv', 'a', newline='')
+    with file:
+        write = csv.writer(file)
+        write.writerows(OverallEigenvalueList)
 #        for j in range(0, 5):
 #            L = [('This is trimmed Serendipity with degree', deg, 'and N =', 2 ** (j+1))]
 #            write.writerows(L)
