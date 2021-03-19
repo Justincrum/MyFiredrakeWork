@@ -1,3 +1,21 @@
+### Slurm script to illustrate how the mixed Poisson problem was solved.
+### file: Mixed_Poisson.slurm
+### author:  Justin Crum
+### date:  3/19/21
+
+###Copyright <YEAR> <COPYRIGHT HOLDER>
+
+###Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software 
+###without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to 
+###permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+###The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+###THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+###PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+###OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
 #!/bin/bash
 #SBATCH --job-name=NCF_Poisson_order2
 #SBATCH --ntasks=94
@@ -9,7 +27,6 @@
 #SBATCH --array 3-3
 #SBATCH --output=NCF_3d_Poisson_Order2-N%a-%j.out
 
-export PATH="/opt/ohpc/pub/mpi/openmpi3-gnu8/3.1.4/bin:/opt/ohpc/pub/compiler/gcc/8.3.0/bin:/opt/ohpc/pub/utils/prun/1.3:/opt/ohpc/pub/utils/autotools/bin:/opt/ohpc/pub/bin:/opt/TurboVNC/bin:/home/u28/jcrum/local/bin:/home/u28/jcrum/firedrake:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin"
 module load python/3.8
 module swap openmpi3 mpich
 ###source ~/firedrake/firedrake/bin/activate   #This needs to be activated somehow, based off the path to /firedrake/bin/activate
