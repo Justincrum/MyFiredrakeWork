@@ -17,10 +17,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 """
 from firedrake import *
-import numpy as np
-import matplotlib.pyplot as plt
 import argparse
-import csv
 from firedrake.petsc import PETSc
 
 parser = argparse.ArgumentParser(description="Allows for input of order and mesh refinement.")
@@ -30,18 +27,19 @@ args = parser.parse_args()
 
 for n in range(args.Order, args.Order + 1):
     for j in range(args.Size, args.Size + 1):
-        PolyDegree = n
-        Cells = 2**j
-        msh = UnitSquareMesh(Cells, Cells, quadrilateral=True)
-        mesh = ExtrudedMesh(msh, layers=Cells, layer_height=1/(Cells))
-
-        HDivSpace = FunctionSpace(mesh, "SminusDiv", PolyDegree)
-        L2Space = FunctionSpace(mesh, "DPC", PolyDegree - 1)
-        MixedSpace = HDivSpace * L2Space
-        DOFs = MixedSpace.dim()
-
-        sigma, u = TrialFunctions(MixedSpace)
-        tau, v = TestFunctions(MixedSpace)
+        ###Mesh set up.
+        polyDegree = n
+        numberOfCells = 2**j
+        msh = UnitSquareMesh(numberOfCells, numberOfCells, quadrilateral=True)
+        mesh = ExtrudedMesh(msh, layers=numberOfCells, layer_height=1/(numberOfCells))
+        #Function space set up.
+        hDivSpace = FunctionSpace(mesh, "SminusDiv", polyDegree)
+        l2Space = FunctionSpace(mesh, "DPC", polyDegree - 1)
+        mixedSpace = hDivSpace * l2Space
+        dofs = mixedSpace.dim()
+        #Problem set up.
+        sigma, u = TrialFunctions(mixedSpace)
+        tau, v = TestFunctions(mixedSpace)
 
         x, y, z = SpatialCoordinate(mesh)
         uex = sin(pi*x)*sin(pi*y)*sin(pi*z)
@@ -49,9 +47,9 @@ for n in range(args.Order, args.Order + 1):
         f = -div(grad(uex))
 
         a = (dot(sigma, tau) + div(tau)*u + div(sigma)*v)*dx
-        L = -f*v*dx
-        w = Function(MixedSpace)                                                         #Dummy function
-
+        l = -f*v*dx
+        w = Function(mixedSpace)
+        ###Solver parameters and solving the problem.
         params = {"snes_type": "newtonls",
                   "snes_linesearch_type": "basic",
                   "snes_monitor": None,
@@ -71,11 +69,11 @@ for n in range(args.Order, args.Order + 1):
                   "mat_mumps_icntl_11": "2"}
         PETSc.Log.begin()
         with PETSc.Log.Event("Solve"):
-            solve(a == L, w, solver_parameters=params)
-        Time = PETSc.Log.Event("Solve").getPerfInfo()["time"] 
+            solve(a == l, w, solver_parameters=params)
+        time = PETSc.Log.Event("Solve").getPerfInfo()["time"] 
         sigma, u = w.split()
-
-        ErrVal = norms.errornorm(uex, u)                                                        #L2 Error between approximate u and exact u.
-        SigErrVal = norms.errornorm(sigmaex, sigma)                                             #L2 Error between approximate sigma and exact sigma.
-        Info = [PolyDegree, Cells, 1/Cells, DOFs, ErrVal, SigErrVal, Time]
-        PETSc.Sys.Print(Info)
+        ###Data collection and printing.
+        errVal = norms.errornorm(uex, u)                                                        #L2 Error between approximate u and exact u.
+        sigErrVal = norms.errornorm(sigmaex, sigma)                                             #L2 Error between approximate sigma and exact sigma.
+        info = [polyDegree, numberOfCells, 1/numberOfCells, dofs, errVal, sigErrVal, time]
+        PETSc.Sys.Print(info)

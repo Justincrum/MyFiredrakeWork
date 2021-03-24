@@ -22,29 +22,29 @@ from firedrake import *
 from petsc4py import PETSc
 from slepc4py import SLEPc
 import numpy as np
-import csv
 
 OverallEigenvalueList = []
 iterationCount = []
 
-for PolyDegree in range(2, 3):            
-    for j in range(3, 4):          #This determines the size of your mesh.
+for polyDegree in range(2, 3):            
+    for j in range(3, 4):          
+        ###Mesh set up.
         N = 2 ** j
         msh = RectangleMesh(N, N, np.pi, np.pi, quadrilateral=True)
         mesh = ExtrudedMesh(msh, layers=N, layer_height=np.pi/(N)) 
-        
-        HCurlSpace = FunctionSpace(mesh, "SminusCurl", PolyDegree)
-        u = TrialFunction(HCurlSpace)
-        v = TestFunction(HCurlSpace)
-        PETSc.Sys.Print("DoFs of HCurlSpace are:")
-        PETSc.Sys.Print(HCurlSpace.dim())
-                
+        ###Function Space set up.
+        hCurlSpace = FunctionSpace(mesh, "SminusCurl", polyDegree)
+        u = TrialFunction(hCurlSpace)
+        v = TestFunction(hCurlSpace)
+        PETSc.Sys.Print("DoFs of hCurlSpace are:")
+        PETSc.Sys.Print(hCurlSpace.dim())
+        ###Problem set up.
         a = (inner(curl(u), curl(v)))*dx
         mss = inner(u, v)*dx
-        bc=DirichletBC(HCurlSpace, 0, "on_boundary")
-        bct = DirichletBC(HCurlSpace, 0.0, "top")
-        bcb = DirichletBC(HCurlSpace, 0.0, "bottom")
-        
+        bc=DirichletBC(hCurlSpace, 0, "on_boundary")
+        bct = DirichletBC(hCurlSpace, 0.0, "top")
+        bcb = DirichletBC(hCurlSpace, 0.0, "bottom")
+        ###Eigensolver set up.
         A = assemble(a, bcs=[bc,bct,bcb], options_prefix="st_").M.handle
         M = assemble(mss, bcs=[bc,bct,bcb], options_prefix="st_").M.handle
         E = SLEPc.EPS().create(comm=mesh.comm)
@@ -56,8 +56,8 @@ for PolyDegree in range(2, 3):
         E.st.setType(SLEPc.ST.Type.SINVERT)
         E.setTarget(3.0)
         E.setFromOptions()
-        
         E.setUp()
+        ###SLEPc solve and print out of results.
         PETSc.Log.begin()
         with PETSc.Log.Event("Solve"): 
             E.solve()
@@ -80,7 +80,7 @@ for PolyDegree in range(2, 3):
         Print("Stopping condition: tol=%.4g, maxit=%d" % (tol, maxit))
         nconv = E.getConverged()
         Print("Number of converged eigenpairs %d" % nconv)
-
+        ###Data collection
         if nconv > 0:
             vr, wr = A.getVecs()
             vi, wi = A.getVecs()
@@ -90,13 +90,9 @@ for PolyDegree in range(2, 3):
                 ks.append(k.real)
                 inds = np.argsort(ks)
         if nconv > 0:
-        # Create the results vectors
+        ###Create the results vectors
             vr, wr = A.getVecs()
             vi, wi = A.getVecs()
-            #
-            #Print()
-            #Print("        k          ||Ax-kx||/||kx||")
-            #Print("----------------- ------------------")
             EigenList = []
             for j, i in enumerate(inds):
                 k = E.getEigenpair(i, vr, vi)

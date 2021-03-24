@@ -1,5 +1,5 @@
 #
-#file: Projection_3d.py
+#file: Projection_2d.py
 #author:  Justin Crum
 #date:  3/19/21
 #
@@ -17,6 +17,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 from firedrake import *
 import argparse
 
+
 parser = argparse.ArgumentParser(description="Allows for input of order and mesh refinement.")
 parser.add_argument("-O", "--Order", type=int, help="Input the order of the polynomials.")
 parser.add_argument("-S", "--Size", type=int, help="Input the exponent for number of cells of mesh 2**S.")
@@ -24,22 +25,22 @@ args = parser.parse_args()
 
 for n in range(args.Order, args.Order + 1):
     for j in range(args.Size, args.Size + 1):
-        ###Setting up mesh.
+        ###Setting up the mesh.
         polyDegree = n
         numberOfCells = 2**j
         h = 1 / numberOfCells
-        msh = UnitSquareMesh(numberOfCells, numberOfCells, quadrilateral=True)
-        mesh = ExtrudedMesh(msh, layers=numberOfCells, layer_height=1/(numberOfCells))
-        ###Choosing function space.
-        pickASpace = FunctionSpace(mesh, "SminusCurl", polyDegree) #NCE = Q^- Lambda^1, NCF = Q^- Lambda^2, SminusCurl = S^- Lambda^1, SminusDiv = S^- Lambda^2
-        dofs = pickASpace.dim()
-        ###Setting up problem, solver parameters, solving, and data collection.
-        x, y, z = SpatialCoordinate(mesh)
-        uex = sin(pi*x)*sin(pi*y)*sin(pi*z)
-        sigmaex = grad(uex)
-
-        params={"mat_type": "aij", "ksp_type": "cg", "pc_type": "bjacobi", "sub_pc_type": "ilu", "ksp_rtol": 1e-10}
+        mesh = UnitSquareMesh(numberOfCells, numberOfCells, quadrilateral=True)
         
-        err = errornorm(sigmaex, project(sigmaex, pickASpace, solver_parameters=params))
+        ###Choose function space and check the DOFs count.  Can replace SminusCurl with SminusDiv, RTCE, RTCF, S, or Lagrange.  For S and Lagrange, change to the scalar element projection line.
+        pickASpace = FunctionSpace(mesh, "SminusCurl", polyDegree)
+        dofs = pickASpace.dim()
+        
+        ###Solve the problem.
+        x, y = SpatialCoordinate(mesh)
+        uex = sin(pi*x)*sin(pi*y)
+        sigmaex = grad(uex)
+        params={"mat_type": "aij", "ksp_type": "cg", "pc_type": "bjacobi", "sub_pc_type": "ilu", "ksp_rtol": 1e-10}
+        #err = errornorm(uex, project(uex, S, solver_parameters=params)) #For scalar elements.
+        err = errornorm(sigmaex, project(sigmaex, pickASpace, solver_parameters=params)) #For vector elements.
         currentData = [polyDegree, numberOfCells, h, dofs, err]
-        print(currentData)
+    print(currentData)
