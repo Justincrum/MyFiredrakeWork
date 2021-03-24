@@ -18,7 +18,6 @@ It also includes a few sample SLURM scripts to give an idea of how to run and re
 **Directions:**
 To run any of the python scripts *except* for Maxwell_Cavity_3d.py, you may run the command 
 `python ____.py -O # -S ##`
-
 where the number after `O` will determine the the order of the element used, and the number after `S` will
 determine the size of the mesh.  To change these parameters in Maxwell_Cavity_3d.py, please edit the script file itself, and then run it
 by doing `python Maxwell_Cavity_3d.py`.  It is possible to add on command line parameters to this code, for examples of this see
