@@ -20,7 +20,9 @@ To run any of the python scripts *except* for Maxwell_Cavity_3d.py, you may run 
 `python ____.py -O # -S ##`
 
 where the number after `O` will determine the the order of the element used, and the number after `S` will
-determine the size of the mesh.  To change these parameters in Maxwell_Cavity_3d.py, please edit the script file itself.
+determine the size of the mesh.  To change these parameters in Maxwell_Cavity_3d.py, please edit the script file itself, and then run it
+by doing `python Maxwell_Cavity_3d.py`.  It is possible to add on command line parameters to this code, for examples of this see
+Eigenvalue.slurm or the SLEPc manual.
 
 To change finite elements used in any of the python scripts, the `FunctionSpace` line(s) must be changed.  The following
 elements can all be used in certain scenarios:
