@@ -10,10 +10,11 @@ scripts to give an idea of how to run and reproduce results in a HPC setting.
 
 To run the following test python scripts, you need to have Firedrake installed 
 and the `TrimmedSerendipity` branch checked out in the following directories:
--`fiat`
--`FInAT`
--`ufl`
--`tsfc`
+
+- `fiat`
+- `FInAT`
+- `ufl`
+- `tsfc`
 
 **Files (elements that can be used in them listed in paranthesis):**
 
