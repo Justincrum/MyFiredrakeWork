@@ -1,6 +1,6 @@
 Trimmed serendipity example codes
 
-**Author:**  
+**Authors:**  
 
 Justin Crum, Andrew Gillette, Josh Levine, Rob Kirby
 
