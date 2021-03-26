@@ -29,7 +29,7 @@
 
 module load python/3.8
 module swap openmpi3 mpich
-###source ~/firedrake/firedrake/bin/activate   #This needs to be activated somehow, based off the path to /firedrake/bin/activate
+###source ~/firedrake/firedrake/bin/activate   #This needs to be activated somehow, based off your path to /firedrake/bin/activate
 
 ~/firedrake/firedrake/bin/firedrake-clean
 

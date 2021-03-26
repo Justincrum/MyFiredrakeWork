@@ -28,7 +28,7 @@
 
 module load python/3.8
 module swap openmpi3 mpich
-source ~/firedrake/firedrake/bin/activate
+#source ~/firedrake/firedrake/bin/activate  #### THIS LINE NEEDS TO BE RUN BASED OFF YOUR PATH TO /firedrake/bin/activate ####
 
 ~/firedrake/firedrake/bin/firedrake-clean
 mpirun -np 8 python3 Maxwell_Cavity_3d.py -st_type sinvert -eps_target 3.0 -eps_nev 15 -mat_mumps_icntl_14 200 -mat_mumps_icntl_13 1 -eps_tol 1e-7
