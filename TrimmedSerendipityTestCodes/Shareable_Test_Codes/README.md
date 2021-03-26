@@ -1,6 +1,10 @@
 Trimmed serendipity example codes
 
-**Author:**  Justin Crum  **Email:** jcrum@email.arizona.edu
+**Author:**  Justin Crum, Andrew Gillette, Josh Levine, Rob Kirby
+**Email:** 
+jcrum@email.arizona.edu, agillette@math.arizona.edu,
+josh@email.arizona.edu, robert_kirby@baylor.edu
+
 
 This includes sample codes used to run numerical experiments comparing tensor
 product and trimmed serendipity elements.  It also includes a few sample SLURM
