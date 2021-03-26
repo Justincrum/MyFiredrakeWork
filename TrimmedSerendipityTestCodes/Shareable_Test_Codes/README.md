@@ -1,7 +1,11 @@
 Trimmed serendipity example codes
 
-**Author:**  Justin Crum, Andrew Gillette, Josh Levine, Rob Kirby
+**Author:**  
+
+Justin Crum, Andrew Gillette, Josh Levine, Rob Kirby
+
 **Email:** 
+
 jcrum@email.arizona.edu, agillette@math.arizona.edu,
 josh@email.arizona.edu, robert_kirby@baylor.edu
 
