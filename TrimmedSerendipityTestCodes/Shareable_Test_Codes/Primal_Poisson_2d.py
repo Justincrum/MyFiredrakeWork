@@ -1,7 +1,7 @@
 #
-#file:  Mixed_Poisson_3d.py
+#file:  Primal_Poisson_2d.py
 #author:  Justin Crum
-#date: 3/19/21
+#date:  3/19/21
 #
 """
 Copyright 2021 Justin Crum
@@ -31,45 +31,42 @@ import argparse
 from firedrake.petsc import PETSc
 
 parser = argparse.ArgumentParser(
-                 description= "Allows for input of order and mesh refinement.")
-parser.add_argument("-O", "--Order", type=int, 
-                 help="Input the order of the polynomials.")
-parser.add_argument("-S", "--Size", type=int, 
-                 help="Input the exponent for number of cells of mesh 2**S.")
+        description="Allows for input of order and mesh refinement.")
+parser.add_argument("-O", "--Order", 
+        type=int, help="Input the order of the polynomials.")
+parser.add_argument("-S", "--Size", 
+        type=int, help="Input the exponent for number of cells of mesh 2**S.")
 args = parser.parse_args()
 
 for n in range(args.Order, args.Order + 1):
     for j in range(args.Size, args.Size + 1):
 
-        ###Mesh set up.
+        ###Mesh set up
         polyDegree = n
         numberOfCells = 2**j
-        msh = UnitSquareMesh(numberOfCells, numberOfCells, quadrilateral=True)
-        mesh = ExtrudedMesh(msh, layers=numberOfCells, 
-                            layer_height=1/(numberOfCells))
+        mesh = UnitSquareMesh(numberOfCells, numberOfCells, quadrilateral=True)
 
         ###Function space set up.
-        #The function space call here could use SminusDiv (hdiv) + DPC (L^2)
-        #or NCE (hdiv) + DQ (L^2).
-        hDivSpace = FunctionSpace(mesh, "SminusDiv", polyDegree)
-        l2Space = FunctionSpace(mesh, "DPC", polyDegree - 1)
-        mixedSpace = hDivSpace * l2Space
-        dofs = mixedSpace.dim()
+        #The function space call can use S or Lagrange.
+        h1Space = FunctionSpace(mesh, "S", polyDegree) 
+        dofs = h1Space.dim()
+        u = TrialFunction(h1Space)
+        v = TestFunction(h1Space)
 
         ###Problem set up.
-        sigma, u = TrialFunctions(mixedSpace)
-        tau, v = TestFunctions(mixedSpace)
+        x, y = SpatialCoordinate(mesh)
+        wex = sin(pi*x)*sin(pi*y)
 
-        x, y, z = SpatialCoordinate(mesh)
-        uex = sin(pi*x)*sin(pi*y)*sin(pi*z)
-        sigmaex = grad(uex)
-        f = -div(grad(uex))
+        f = Function(h1Space)
+        f = -div(grad(wex))
 
-        a = (dot(sigma, tau) + div(tau)*u + div(sigma)*v)*dx
-        l = -f*v*dx
-        w = Function(mixedSpace)
+        a = dot(grad(u), grad(v))*dx
+        l = inner(v,f)*dx
 
-        ###Solver parameters and solving the problem.
+        bc1 = DirichletBC(h1Space, 0.0, "on_boundary")
+        w = Function(h1Space)
+
+        ###Solver parameters, solving, and printing results.
         params = {"snes_type": "newtonls",
                   "snes_linesearch_type": "basic",
                   "snes_monitor": None,
@@ -85,17 +82,11 @@ for n in range(args.Order, args.Order + 1):
                   "snes_rtol": 1e-12,
                   "snes_atol": 1e-20,
                   "pc_factor_mat_solver_type": "mumps",
-                  "mat_mumps_icntl_14": "200",
-                  "mat_mumps_icntl_11": "2"}
+                  "mat_mumps_icntl_14": "1000"}
         PETSc.Log.begin()
         with PETSc.Log.Event("Solve"):
-            solve(a == l, w, solver_parameters=params)
-        time = PETSc.Log.Event("Solve").getPerfInfo()["time"] 
-        sigma, u = w.split()
-
-        ###Data collection and printing.
-        errVal = norms.errornorm(uex, u)
-        sigErrVal = norms.errornorm(sigmaex, sigma)
-        info = [polyDegree, numberOfCells, 1/numberOfCells, 
-                dofs, errVal, sigErrVal, time]
+            solve(a == l, w, bcs=[bc1], solver_parameters=params)
+        time = PETSc.Log.Event("Solve").getPerfInfo()["time"]
+        errVal = norms.errornorm(wex, w)               
+        info = [polyDegree, numberOfCells, dofs, errVal, time]
         PETSc.Sys.Print(info)

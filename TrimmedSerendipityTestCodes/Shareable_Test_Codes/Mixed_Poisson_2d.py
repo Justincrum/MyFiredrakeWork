@@ -1,5 +1,5 @@
 #
-#file:  Mixed_Poisson_3d.py
+#file:  Mixed_Poisson_2d.py
 #author:  Justin Crum
 #date: 3/19/21
 #
@@ -31,11 +31,11 @@ import argparse
 from firedrake.petsc import PETSc
 
 parser = argparse.ArgumentParser(
-                 description= "Allows for input of order and mesh refinement.")
-parser.add_argument("-O", "--Order", type=int, 
-                 help="Input the order of the polynomials.")
-parser.add_argument("-S", "--Size", type=int, 
-                 help="Input the exponent for number of cells of mesh 2**S.")
+        description="Allows for input of order and mesh refinement.")
+parser.add_argument("-O", "--Order", 
+        type=int, help="Input the order of the polynomials.")
+parser.add_argument("-S", "--Size", 
+        type=int, help="Input the exponent for number of cells of mesh 2**S.")
 args = parser.parse_args()
 
 for n in range(args.Order, args.Order + 1):
@@ -44,13 +44,11 @@ for n in range(args.Order, args.Order + 1):
         ###Mesh set up.
         polyDegree = n
         numberOfCells = 2**j
-        msh = UnitSquareMesh(numberOfCells, numberOfCells, quadrilateral=True)
-        mesh = ExtrudedMesh(msh, layers=numberOfCells, 
-                            layer_height=1/(numberOfCells))
+        mesh = UnitSquareMesh(numberOfCells, numberOfCells, quadrilateral=True)
 
         ###Function space set up.
-        #The function space call here could use SminusDiv (hdiv) + DPC (L^2)
-        #or NCE (hdiv) + DQ (L^2).
+        #Could use SminusDiv (hdiv) + DPC (L^2) or
+        #RTCF (hdiv) + DQ (L^2).
         hDivSpace = FunctionSpace(mesh, "SminusDiv", polyDegree)
         l2Space = FunctionSpace(mesh, "DPC", polyDegree - 1)
         mixedSpace = hDivSpace * l2Space
@@ -60,8 +58,8 @@ for n in range(args.Order, args.Order + 1):
         sigma, u = TrialFunctions(mixedSpace)
         tau, v = TestFunctions(mixedSpace)
 
-        x, y, z = SpatialCoordinate(mesh)
-        uex = sin(pi*x)*sin(pi*y)*sin(pi*z)
+        x, y = SpatialCoordinate(mesh)
+        uex = sin(pi*x)*sin(pi*y)
         sigmaex = grad(uex)
         f = -div(grad(uex))
 
@@ -99,3 +97,4 @@ for n in range(args.Order, args.Order + 1):
         info = [polyDegree, numberOfCells, 1/numberOfCells, 
                 dofs, errVal, sigErrVal, time]
         PETSc.Sys.Print(info)
+
