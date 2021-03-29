@@ -1,6 +1,14 @@
 Trimmed serendipity example codes
 
-**Author:**  Justin Crum  **Email:** jcrum@email.arizona.edu
+**Authors:**  
+
+Justin Crum, Andrew Gillette, Josh Levine, Rob Kirby
+
+**Email:** 
+
+jcrum@email.arizona.edu, agillette@math.arizona.edu,
+josh@email.arizona.edu, robert_kirby@baylor.edu
+
 
 This includes sample codes used to run numerical experiments comparing tensor
 product and trimmed serendipity elements.  It also includes a few sample SLURM
@@ -10,10 +18,11 @@ scripts to give an idea of how to run and reproduce results in a HPC setting.
 
 To run the following test python scripts, you need to have Firedrake installed 
 and the `TrimmedSerendipity` branch checked out in the following directories:
--`fiat`
--`FInAT`
--`ufl`
--`tsfc`
+
+- `fiat`
+- `FInAT`
+- `ufl`
+- `tsfc`
 
 **Files (elements that can be used in them listed in paranthesis):**
 
