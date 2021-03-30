@@ -34,12 +34,12 @@ parser = argparse.ArgumentParser(
                  description= "Allows for input of order and mesh refinement.")
 parser.add_argument("-O", "--Order", type=int, 
                  help="Input the order of the polynomials.")
-parser.add_argument("-S", "--Size", type=int, 
-                 help="Input the exponent for number of cells of mesh 2**S.")
+parser.add_argument("-N", "--CellExponent", type=int, 
+                 help="Input the exponent for number of cells in mesh 2**N x 2**N x 2**N.")
 args = parser.parse_args()
 
 for n in range(args.Order, args.Order + 1):
-    for j in range(args.Size, args.Size + 1):
+    for j in range(args.CellExponent, args.CellExponent + 1):
 
         ###Mesh set up.
         polyDegree = n

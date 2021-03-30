@@ -60,6 +60,7 @@ for polyDegree in range(2, 3):
         bcb = DirichletBC(hCurlSpace, 0.0, "bottom")
 
         ###Eigensolver set up.
+        #Solving Ax = lambda Mx
         A = assemble(a, bcs=[bc,bct,bcb], 
                      options_prefix="st_").M.handle
         M = assemble(mss, bcs=[bc,bct,bcb], 

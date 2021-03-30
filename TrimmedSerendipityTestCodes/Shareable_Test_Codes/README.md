@@ -37,30 +37,16 @@ and the `TrimmedSerendipity` branch checked out in the following directories:
 **Directions:**
 
 To run any of the python scripts *except* for `Maxwell_Cavity_3d.py`, you may run
-the command `python ____.py -O # -S ##` where the number after `O` will 
-determine the the order of the element used, and the number after `S` will
-determine the size of the mesh by choosing a number of elements in each row and
-column.  
+the command `python ____.py -O # -N ##` where the number after `O` will 
+determine the the order of the element used, and the number after `N` will
+determine the exponent for the mesh of size 2^N x 2^N or 2^N x 2^N x 2^N.  
+Note that both O and N should be positive integers.  
 
 To change these parameters in `Maxwell_Cavity_3d.py`, please edit the 
 script file itself.  It is possible to add on command line parameters to this 
 code, for examples of this see Eigenvalue.slurm or the SLEPc manual.  To run
 this code without extra command line parameters, 
 do `python Maxwell_Cavity_3d.py`.
-
-To change finite elements used in any of the python scripts, the `FunctionSpace` 
-line(s) must be changed.  The following elements can all be used in certain
-scenarios:
-
-- NCE
-- RTCE
-- NCF
-- RTCF
-- Lagrange
-- SminusDiv
-- SminusCurl
-- S
-
 
 **Results:**
 
